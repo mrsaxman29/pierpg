@@ -1,0 +1,67 @@
+body{
+    background-color: rgb(32, 30, 30);
+    margin: 0px;
+}
+
+#board{
+    background-color: green;
+    height: 80vh;
+    width: 100%;
+    
+}
+
+#page{
+    
+    background-color: pink;
+    height: 70vh;
+    margin: 50px;
+    border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    
+    
+    
+}
+
+
+
+
+#footer{
+    background-color: beige;
+    height: 20vh;
+}
+
+#ui{
+    background-color: chocolate;
+    display: flexbox;
+    flex-direction: row;
+    height: 14vh;
+    margin-top: 1vh;
+    margin-left: 12px;
+    margin-right: 12px;
+    
+}
+
+#input{
+    background-color: bisque;
+    height: 50%;
+    margin-top: 3vh;
+    margin-left: 3vh;
+    width: 60vh;
+    font-size: xx-large;
+    border-radius: 10px;
+    
+}
+
+#button1{
+    background-color: darkorchid;
+    margin: 0vh;
+    width: 15vh;
+    height: 50%;
+    float:right;
+    vertical-align:top;
+    margin-top: 37px;
+    margin-right: 38px;
+    border-radius: 10px;
+    
+}
