@@ -144,9 +144,9 @@ function display_room_info(){
     let here = phil.room;
     let location = world[here];
     let item = location.items;
-    console.log(item.desc);
+    //console.log(item.desc);
     let person = location.people;
-    console.log(person);
+    //console.log(person);
     let exits = location.exits;
     let exits_list = "You see exits to the ";
     for (ex in exits){
@@ -200,47 +200,118 @@ document.addEventListener("keydown", function(event){
         check_command(user_input.value);
         user_input.value="";
         page.scrollTo(0, page.scrollHeight);
-        
-        //console.log(world);
 
     }
 });
 
 
 function check_command(content){
-    
-
     console.log("check command");
 
     if(content.toUpperCase() === 'L'){
         console.log("L WAS PRESSSED");
-        
         console.log(world[phil.room].desc);
         console.log("LOOK OVER")
-
         display_room_info();
-
-        
     }
     if(content.toUpperCase() === 'P'){
         console.log("P WAS PRESSSED")
+        if (world[phil.room].items == null){
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("There's nothing to pickup here");
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
+
+        }
+        else if(phil.inventory.length == 0){
+            phil.inventory.push(world[phil.room].items);
+            console.log(phil.inventory[0].desc);
+            world[phil.room].items = null;
+            console.log(world[phil.room].items);
+
+        }
+        else{
+            phil.inventory.push(world[phil.room].items);
+            console.log(phil.inventory[0].desc);
+            console.log(phil.inventory[1].desc);
+            world[phil.room].items = phil.inventory[0];
+            console.log(world[phil.room].items);
+            phil.inventory.splice(0,1);
+
+        };
     }
     if(content.toUpperCase() === 'U'){
         console.log("U WAS PRESSSED")
+
+        if (phil.inventory.length == 0){
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You have nothing to use");
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
+
+        }
+        else{
+            phil.score += phil.inventory[0].value;
+            console.log(phil.score);
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You used a " + phil.inventory[0].name);
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
+
+
+        };
+        
+
+
+
     }
     if(content.toUpperCase() === 'I'){
         console.log("I WAS PRESSSED")
+        if(phil.inventory.length == 0){
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You aren't holding anything");
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
+
+        }
+        else{
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You're holding " + phil.inventory[0].desc);
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
+
+        }
     }
     if(content.toUpperCase() === 'T'){
         console.log("T WAS PRESSSED")
+
+
+
     }
     if(content.toUpperCase() === 'N' || content.toUpperCase() === 'S' 
     || content.toUpperCase() === 'E' || content.toUpperCase() === 'W'){
         console.log('A MOVE WAS MADE TO THE ' + content.toUpperCase());
-        phil.move(content.toUpperCase());
-        console.log(phil.destination);
-        phil.room = phil.destination;
-        console.log(phil.room);
+        let doors = world[phil.room].exits;
+        if (content.toUpperCase() in doors){
+            console.log("WE CAN GOOOOOOO");
+            phil.move(content.toUpperCase());
+            phil.room = phil.destination;
+            console.log(phil.room);
+            display_room_info();
+        } 
+        else {
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You can't go that direction");
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
+
+
+
+        }
+
+
+        
+
     }
 
 };
