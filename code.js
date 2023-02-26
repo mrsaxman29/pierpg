@@ -67,10 +67,11 @@ class Player {
     this.room = room;
   }
 
-  move(direction) {
-    this.direction = direction;
-    x = world[phil.room].exits;
-    y = x[direction];
+  move(dirr) {
+    console.log("MOVE FUNCTION");
+    //this.direction = dirr;
+    let outs = world[phil.room].exits;
+    this.destination = outs[dirr];
   }
 
   question() {
@@ -140,6 +141,54 @@ function display_input(){
 
 function display_room_info(){
 
+    let here = phil.room;
+    let location = world[here];
+    let item = location.items;
+    console.log(item.desc);
+    let person = location.people;
+    console.log(person);
+    let exits = location.exits;
+    let exits_list = "You see exits to the ";
+    for (ex in exits){
+        exits_list += ex;
+        exits_list += " ";  //do better here
+    };
+
+    console.log(exits_list);
+    
+
+    const new_div = document.createElement("div");
+    const new_cont = document.createTextNode(location.desc);
+    new_div.appendChild(new_cont);
+    page.appendChild(new_div);
+
+
+
+    if (person !== null){
+        const new_div = document.createElement("div");
+        const new_cont = document.createTextNode("Here with you, you see " + person.desc);
+        new_div.appendChild(new_cont);
+        page.appendChild(new_div);
+        
+    }
+
+    if (item !== null){
+
+        const new_div = document.createElement("div");
+        const new_cont = document.createTextNode("You See... " + item.desc);
+        new_div.appendChild(new_cont);
+        page.appendChild(new_div);
+    };
+
+    const new_div2 = document.createElement("div");
+    const new_cont2 = document.createTextNode(exits_list);
+    new_div2.appendChild(new_cont2);
+    page.appendChild(new_div2);
+
+
+
+
+
 
 };
 
@@ -151,31 +200,26 @@ document.addEventListener("keydown", function(event){
         check_command(user_input.value);
         user_input.value="";
         page.scrollTo(0, page.scrollHeight);
-        choose(directs);
-        console.log(world);
+        
+        //console.log(world);
 
     }
 });
 
 
 function check_command(content){
-    const xxx = content;
+    
 
-    console.log("check command")
-    if (content === "yo"){
-        console.log('YO WAS SAID');
-        console.log(pyscript.runtime.globals.get('phil').desc);
-    }
+    console.log("check command");
+
     if(content.toUpperCase() === 'L'){
         console.log("L WAS PRESSSED");
-        let rn = phil.room;
-        console.log(world[rn].desc);
+        
+        console.log(world[phil.room].desc);
         console.log("LOOK OVER")
 
+        display_room_info();
 
-
-
-        
         
     }
     if(content.toUpperCase() === 'P'){
@@ -192,7 +236,11 @@ function check_command(content){
     }
     if(content.toUpperCase() === 'N' || content.toUpperCase() === 'S' 
     || content.toUpperCase() === 'E' || content.toUpperCase() === 'W'){
-        console.log('A MOVE WAS MADE' + xxx );
+        console.log('A MOVE WAS MADE TO THE ' + content.toUpperCase());
+        phil.move(content.toUpperCase());
+        console.log(phil.destination);
+        phil.room = phil.destination;
+        console.log(phil.room);
     }
 
 };
@@ -217,7 +265,7 @@ function check_doors(){
 
 // more variable declirations
 
-const phil = new Player("Phil", "A friendly employee and fiance.", "stockroom");
+var phil = new Player("Phil", "A friendly employee and fiance.", "stockroom");
 const sir = new Player("sir", "A young buck with shiffty eyes.", "street")
 const customer = new Player("Robbin", "Robbin Ross: a grey streaked bougie white mom.", "store")
 const customer2 = new Player("Mr. Ortega", "Mr. Ortega: a large man with questionable employment.", "nowhere1")
