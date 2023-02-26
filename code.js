@@ -2,11 +2,13 @@ const button = document.getElementById("button1");
 const user_input = document.getElementById("input");
 const span = document.getElementById("storyspan");
 const page = document.getElementById("page")
-const game_state = '';
+var game_state = 'commands';
 
 const world = {};
 const directs = ["N", "S", "E", "W"];
 const count = 0;
+
+
 
 
 console.log("PRRRRIIIII");
@@ -72,48 +74,45 @@ class Player {
     //this.direction = dirr;
     let outs = world[phil.room].exits;
     this.destination = outs[dirr];
-  }
+  };
 
-  question() {
-    if (world[phil.room].people.name == "sir") {
-      let ww = random.choice(scam_list);
-      console.log("\n" + ww + "\n");
-    } else if (world[phil.room].people.name == "nathalie") {
-      let ww = random.choice(nathalie_questions);
-      console.log("\n" + ww + "\n");
-    } else if (world[phil.room].people.name == "charles") {
-      let ww = random.choice(charles_questions);
-      console.log("\n" + ww + "\n");
-    } else {
-      let oo = random.choice(question_list);
-      console.log("\n" + oo + "\n");
-    }
-  }
-
-  talk(name) {
-    this.name = name;
+  talk(npc_object) {
+    let name = npc_object.name;
     console.log("Do you need any help?\n");
-    let gg = world[phil.room].people;
-    gg.question();
-    console.log();
-    let ll = prompt("type your response:");
-    let pp = ll.split(" ");
-    if (pp.some((item) => content.includes(item))) {
-      console.log("What did you just say to me!?");
-      console.log("\n~They look pissed~\n");
-      phil.score -= 10;
-      console.log("Your score is: " + phil.score);
-      
-      
-    } else {
-      console.log("~They look pleased with you and say 'Thanks'\n");
-      phil.score += 15;
-      let yyy = phil.score;
-      console.log(
-        "Your score has increased by 15 points! \n Your score is: " + yyy
-      );
+
+    if (name == "sir"){
+      let npc_response = choose(scam_list);
+      const new_div = document.createElement("div");
+      const new_cont = document.createTextNode(npc_response);
+      new_div.appendChild(new_cont);
+      page.appendChild(new_div);
     }
-  }
+    else if (name == "charles"){
+      let npc_response = choose(charles_questions);
+      const new_div = document.createElement("div");
+      const new_cont = document.createTextNode(npc_response);
+      new_div.appendChild(new_cont);
+      page.appendChild(new_div);
+    }
+    else if (name == "nathalie"){
+      let npc_response = choose(nathalie_questions);
+      const new_div = document.createElement("div");
+      const new_cont = document.createTextNode(npc_response);
+      new_div.appendChild(new_cont);
+      page.appendChild(new_div);
+    }
+    else{
+      let npc_response = choose(question_list);
+      const new_div = document.createElement("div");
+      const new_cont = document.createTextNode(npc_response);
+      new_div.appendChild(new_cont);
+      page.appendChild(new_div);
+    };
+
+    // handle typinmg reponse here
+    
+    
+  };
 
   toString() {
     return this.desc;
@@ -197,15 +196,38 @@ document.addEventListener("keydown", function(event){
 
         event.preventDefault();
         display_input();
-        check_command(user_input.value);
-        user_input.value="";
-        page.scrollTo(0, page.scrollHeight);
 
-    }
+        if(game_state == "commands"){
+          check_command(user_input.value);
+          user_input.value="";
+          page.scrollTo(0, page.scrollHeight);
+        }
+        else{
+          check_response(user_input.value);
+        };
+    };
 });
+
+function check_response(text_input){
+  console.log("Checking Answer to Question");
+  let words = text_input.split(' ');
+  console.log(words);
+  words.forEach((word) => {
+    console.log(word);
+    if (badwords.includes(word)){
+      console.log('BBBABDBBBABDBABDBADBADBBB   BREAK HERE')
+    };
+  });
+
+  user_input.value='';
+
+  game_state = "commands";
+
+};
 
 
 function check_command(content){
+
     console.log("check command");
 
     if(content.toUpperCase() === 'L'){
@@ -228,6 +250,11 @@ function check_command(content){
             console.log(phil.inventory[0].desc);
             world[phil.room].items = null;
             console.log(world[phil.room].items);
+            //phil.inventory[0].desc
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You picked up a " + phil.inventory[0].name);
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
 
         }
         else{
@@ -237,6 +264,10 @@ function check_command(content){
             world[phil.room].items = phil.inventory[0];
             console.log(world[phil.room].items);
             phil.inventory.splice(0,1);
+            const new_div = document.createElement("div");
+            const new_cont = document.createTextNode("You picked up a " + phil.inventory[0].name);
+            new_div.appendChild(new_cont);
+            page.appendChild(new_div);
 
         };
     }
@@ -251,12 +282,22 @@ function check_command(content){
 
         }
         else{
-            phil.score += phil.inventory[0].value;
-            console.log(phil.score);
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("You used a " + phil.inventory[0].name);
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
+            if(phil.inventory[0].ready == true){
+                phil.score += phil.inventory[0].value;
+                console.log(phil.score);
+                const new_div = document.createElement("div");
+                const new_cont = document.createTextNode("You used the " + phil.inventory[0].name + ". Your score is now " + phil.score);
+                new_div.appendChild(new_cont);
+                page.appendChild(new_div);
+                phil.inventory[0].ready = false;
+                }
+            else{
+                const new_div = document.createElement("div");
+                const new_cont = document.createTextNode("Youu just used that. Try something else...");
+                new_div.appendChild(new_cont);
+                page.appendChild(new_div);
+
+            };
 
 
         };
@@ -284,8 +325,18 @@ function check_command(content){
     }
     if(content.toUpperCase() === 'T'){
         console.log("T WAS PRESSSED")
-
-
+        if(world[phil.room].people == null){
+          const new_div = document.createElement("div");
+          const new_cont = document.createTextNode("There's noone here...");
+          new_div.appendChild(new_cont);
+          page.appendChild(new_div);
+        }
+        else{
+          phil.talk(world[phil.room].people);
+          console.log("SOMEONE IS HERE TO TALK TO");
+          game_state = "talking";
+          
+        };
 
     }
     if(content.toUpperCase() === 'N' || content.toUpperCase() === 'S' 
@@ -370,14 +421,21 @@ const bar = new Room("bar", "A high counter covered in aluminium abutting a purp
 
 const rooms = [intro, bodega, stockroom, bathroom, desk, register, door, street, store, bar];
 
+const question_list = ["Do you have orange wine?", "Do you have AIR Vodka?", "Do you have this chilled?", "Can I please use your bathroom?", "Can I get what I had last time?", "I had a wine on vacation six years ago in Malta that started with a P. Do you know what I'm talking about?", "Is this dry?", "What time do you close?", "Can I get a discount?", "Do you sell beer?"]
+const scam_list = ["Yo. Do you have Henny?", "What's up boss.  Do you guys have large Patron?", "Ey Pa.  You guys have Ciroc?", "Yo my man, do you take Kinch?"]
+const nathalie_questions = ["Have you seen my vape pen?", "Can I ask you some questions for my project?", "Did you see that episode of 90 Day Fiance with Eric-ie?  He's my favorite.", "I forget my keys...", "Where's Danny"]
+const charles_questions = ["How much money is in the safe?", "Do we have any good Amarones?", "What are you doing later for dinner?", "I love Trump. I think he owns the Fed; that little fa&!@t Bernake isn't s*$^."]
+
 
 
 rooms.forEach(element => {
     console.log(element.name);
-    
     Object.defineProperty(world, element.name, {value: element});
     console.log(world);
-
     
 });
 
+const new_div3 = document.createElement("div");
+const new_cont3 = document.createTextNode("You work at a local wine shop. Explore the store...(l)ook around (p)ick up (u)se (i)nventory (t)alk (n)orth (s)outh (e)ast (w)est:  ");
+new_div3.appendChild(new_cont3);
+page.appendChild(new_div3);
