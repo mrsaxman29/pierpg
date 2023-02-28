@@ -9,6 +9,8 @@ const directs = ["N", "S", "E", "W"];
 const count = 0;
 
 
+const nobody_msg = "THERE ISNT ANYONE EHRE";
+
 
 
 console.log("PRRRRIIIII");
@@ -157,32 +159,46 @@ function display_room_info(){
     
 
     const new_div = document.createElement("div");
-    const new_cont = document.createTextNode(location.desc);
+    const new_cont = document.createTextNode('');
     new_div.appendChild(new_cont);
+    //new_div.style.backgroundColor="purple";
     page.appendChild(new_div);
+    var msg1 =location.desc;
 
 
 
     if (person !== null){
+        var msg2 = "Here with you, you see " + person.desc + "\r\n...";
         const new_div = document.createElement("div");
-        const new_cont = document.createTextNode("Here with you, you see " + person.desc);
+        const new_cont = document.createTextNode('');
         new_div.appendChild(new_cont);
         page.appendChild(new_div);
         
-    }
+
+        
+    }else{msg2=' '};
 
     if (item !== null){
-
+        var msg3 = "You See... \r\n\n" + item.desc + "\r\n...";
         const new_div = document.createElement("div");
-        const new_cont = document.createTextNode("You See... " + item.desc);
+        const new_cont = document.createTextNode('');
         new_div.appendChild(new_cont);
         page.appendChild(new_div);
     };
 
     const new_div2 = document.createElement("div");
-    const new_cont2 = document.createTextNode(exits_list);
+    const new_cont2 = document.createTextNode("");
     new_div2.appendChild(new_cont2);
     page.appendChild(new_div2);
+
+    var full_msg = msg1+msg2+msg3;
+
+    typeWriterEffect(new_div, full_msg);
+
+    new_div2.appendChild(document.createElement("br"));
+
+    setTimeout(typeWriterEffect, 2500, new_div2, exits_list);
+
 
 
 
@@ -224,6 +240,18 @@ function check_response(text_input){
   game_state = "commands";
 
 };
+
+function typeWriterEffect(element, text) {
+  const div = element;
+  let i = 0;
+  const timer = setInterval(() => {
+    div.innerHTML += text.charAt(i);
+    i++;
+    if (i === text.length) {
+      clearInterval(timer);
+    }
+  }, 10); // Change this value to control the speed of typing
+}
 
 
 function check_command(content){
@@ -326,10 +354,16 @@ function check_command(content){
     if(content.toUpperCase() === 'T'){
         console.log("T WAS PRESSSED")
         if(world[phil.room].people == null){
-          const new_div = document.createElement("div");
-          const new_cont = document.createTextNode("There's noone here...");
+          const msg = "THIS SHOULD BE TYPED";
+          var passed_msg = '';
+          var new_div = document.createElement("div");
+          const new_cont = document.createTextNode("...");
           new_div.appendChild(new_cont);
           page.appendChild(new_div);
+
+          typeWriterEffect(new_div, msg);
+          
+          
         }
         else{
           phil.talk(world[phil.room].people);
@@ -439,3 +473,13 @@ const new_div3 = document.createElement("div");
 const new_cont3 = document.createTextNode("You work at a local wine shop. Explore the store...(l)ook around (p)ick up (u)se (i)nventory (t)alk (n)orth (s)outh (e)ast (w)est:  ");
 new_div3.appendChild(new_cont3);
 page.appendChild(new_div3);
+
+
+
+/// Display Txt : commands each time at end of print
+/// exits (or text after with commands neeeds to scroll dowen to bottom)
+/// inverntory I is typewritter 
+/// make npcs move around after a certain number of turns 
+/// fix talk function
+/// write better dialogue 
+///
