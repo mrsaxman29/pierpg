@@ -81,34 +81,28 @@ class Player {
   talk(npc_object) {
     let name = npc_object.name;
     console.log("Do you need any help?\n");
+    display_commands(0, "Do you need any help?", "green");
+
 
     if (name == "sir"){
       let npc_response = choose(scam_list);
-      const new_div = document.createElement("div");
-      const new_cont = document.createTextNode(npc_response);
-      new_div.appendChild(new_cont);
-      page.appendChild(new_div);
+      display_commands(1000, npc_response, "blue");
+      display_commands(2000, "type your response", "green");
     }
     else if (name == "charles"){
       let npc_response = choose(charles_questions);
-      const new_div = document.createElement("div");
-      const new_cont = document.createTextNode(npc_response);
-      new_div.appendChild(new_cont);
-      page.appendChild(new_div);
+      display_commands(1000, npc_response, "blue");
+      display_commands(2000, "type your response", "green");
     }
     else if (name == "nathalie"){
       let npc_response = choose(nathalie_questions);
-      const new_div = document.createElement("div");
-      const new_cont = document.createTextNode(npc_response);
-      new_div.appendChild(new_cont);
-      page.appendChild(new_div);
+      display_commands(1000, npc_response, "blue");
+      display_commands(2000, "type your response", "green");
     }
     else{
       let npc_response = choose(question_list);
-      const new_div = document.createElement("div");
-      const new_cont = document.createTextNode(npc_response);
-      new_div.appendChild(new_cont);
-      page.appendChild(new_div);
+      display_commands(1000, npc_response, "blue");
+      display_commands(2000, "type your response", "green");
     };
 
     // handle typinmg reponse here
@@ -161,9 +155,9 @@ function display_room_info(){
     const new_div = document.createElement("div");
     const new_cont = document.createTextNode('');
     new_div.appendChild(new_cont);
-    //new_div.style.backgroundColor="purple";
+    new_div.style.color="black";
     page.appendChild(new_div);
-    var msg1 =location.desc;
+    var msg1 = location.desc;
 
 
 
@@ -184,7 +178,7 @@ function display_room_info(){
         const new_cont = document.createTextNode('');
         new_div.appendChild(new_cont);
         page.appendChild(new_div);
-    };
+    }else{msg3 = ""};
 
     const new_div2 = document.createElement("div");
     const new_cont2 = document.createTextNode("");
@@ -195,31 +189,55 @@ function display_room_info(){
 
     typeWriterEffect(new_div, full_msg);
 
-    new_div2.appendChild(document.createElement("br"));
+    new_div2.appendChild(document.createElement("br")); // ADDS LINE BREAK
+
+    new_div2.style.color="purple";
 
     setTimeout(typeWriterEffect, 2500, new_div2, exits_list);
 
 
+    const command_list = "(l)ook around (p)ick up (u)se (i)nventory (t)alk (n)orth (s)outh (e)ast (w)est:";
+    const new_div4 = document.createElement("div");
+    const new_cont4 = document.createTextNode("");
+    new_div4.appendChild(new_cont4);
+    new_div4.style.color="gray";
+    page.appendChild(new_div4);
+    new_div4.appendChild(document.createElement("br"));
 
+    setTimeout(typeWriterEffect, 4000, new_div4, command_list);
 
-
-
-
+    /// DO WE SCROLL TO BOTTOM???
 };
+
+const command_list = "(l)ook around (p)ick up (u)se (i)nventory (t)alk (n)orth (s)outh (e)ast (w)est:";
+
+function display_commands(delay, str_to_display, color){
+  
+  const new_div5 = document.createElement("div");
+  const new_cont5 = document.createTextNode("");
+  new_div5.appendChild(new_cont5);
+  new_div5.style.color=color;
+  page.appendChild(new_div5);
+  new_div5.appendChild(document.createElement("br"));
+
+  setTimeout(typeWriterEffect, delay, new_div5, str_to_display);
+
+}
 
 document.addEventListener("keydown", function(event){
     if (event.key==="Enter"){
 
-        event.preventDefault();
-        display_input();
+        event.preventDefault();  // LINE BELOW SHOWS WHAT YOU TYPE
+        //display_input();
 
         if(game_state == "commands"){
           check_command(user_input.value);
           user_input.value="";
           page.scrollTo(0, page.scrollHeight);
         }
-        else{
+        else{ //WE ARE IN TALKING MODE HERE
           check_response(user_input.value);
+          page.scrollTo(0, page.scrollHeight);
         };
     };
 });
@@ -235,9 +253,14 @@ function check_response(text_input){
     };
   });
 
+  display_commands(0, text_input, "green");
+  display_commands(1500, command_list, "gray");
+
   user_input.value='';
 
   game_state = "commands";
+
+  page.scrollTo(0, page.scrollHeight);
 
 };
 
@@ -263,14 +286,14 @@ function check_command(content){
         console.log(world[phil.room].desc);
         console.log("LOOK OVER")
         display_room_info();
+        page.scrollTo(0, page.scrollHeight);
     }
     if(content.toUpperCase() === 'P'){
         console.log("P WAS PRESSSED")
         if (world[phil.room].items == null){
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("There's nothing to pickup here");
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
+            display_commands(0, "There is nothing her to pickup", "red");
+            display_commands(2000, command_list, "gray");
+
 
         }
         else if(phil.inventory.length == 0){
@@ -279,10 +302,8 @@ function check_command(content){
             world[phil.room].items = null;
             console.log(world[phil.room].items);
             //phil.inventory[0].desc
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("You picked up a " + phil.inventory[0].name);
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
+            display_commands(0, "You picked up a " + phil.inventory[0].name, "black");
+            display_commands(2000, command_list, "gray");
 
         }
         else{
@@ -292,10 +313,8 @@ function check_command(content){
             world[phil.room].items = phil.inventory[0];
             console.log(world[phil.room].items);
             phil.inventory.splice(0,1);
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("You picked up a " + phil.inventory[0].name);
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
+            display_commands(0, "You picked up a " + phil.inventory[0].name, "black");
+            display_commands(2000, command_list, "gray");
 
         };
     }
@@ -303,27 +322,18 @@ function check_command(content){
         console.log("U WAS PRESSSED")
 
         if (phil.inventory.length == 0){
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("You have nothing to use");
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
+            display_commands(0, "You have nothing to use.", "black");
 
         }
         else{
             if(phil.inventory[0].ready == true){
                 phil.score += phil.inventory[0].value;
-                console.log(phil.score);
-                const new_div = document.createElement("div");
-                const new_cont = document.createTextNode("You used the " + phil.inventory[0].name + ". Your score is now " + phil.score);
-                new_div.appendChild(new_cont);
-                page.appendChild(new_div);
+                display_commands(0, "You used the " + phil.inventory[0].name + ". Your score is now " + phil.score, "black");
                 phil.inventory[0].ready = false;
                 }
             else{
-                const new_div = document.createElement("div");
-                const new_cont = document.createTextNode("Youu just used that. Try something else...");
-                new_div.appendChild(new_cont);
-                page.appendChild(new_div);
+                display_commands(0, "You just used that. Try something else...", "red")
+                display_commands(1000, command_list, "gray");
 
             };
 
@@ -337,31 +347,22 @@ function check_command(content){
     if(content.toUpperCase() === 'I'){
         console.log("I WAS PRESSSED")
         if(phil.inventory.length == 0){
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("You aren't holding anything");
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
-
+            display_commands(0, "You aren't holding anything", "black");
+            display_commands(1000, command_list, "gray");
         }
         else{
-            const new_div = document.createElement("div");
-            const new_cont = document.createTextNode("You're holding " + phil.inventory[0].desc);
-            new_div.appendChild(new_cont);
-            page.appendChild(new_div);
+            display_commands(0, "You're holding " + phil.inventory[0].desc, "black");
+            display_commands(1000, command_list, "gray");
 
         }
     }
     if(content.toUpperCase() === 'T'){
         console.log("T WAS PRESSSED")
         if(world[phil.room].people == null){
-          const msg = "THIS SHOULD BE TYPED";
-          var passed_msg = '';
-          var new_div = document.createElement("div");
-          const new_cont = document.createTextNode("...");
-          new_div.appendChild(new_cont);
-          page.appendChild(new_div);
-
-          typeWriterEffect(new_div, msg);
+          const msg = "You begin to speak but stop short when you realize no one is around.";
+          
+          display_commands(0, msg, "red");
+          display_commands(2000, command_list, "gray");
           
           
         }
@@ -470,16 +471,16 @@ rooms.forEach(element => {
 });
 
 const new_div3 = document.createElement("div");
-const new_cont3 = document.createTextNode("You work at a local wine shop. Explore the store...(l)ook around (p)ick up (u)se (i)nventory (t)alk (n)orth (s)outh (e)ast (w)est:  ");
+const new_cont3 = document.createTextNode("ENTER 'L' TO START");
 new_div3.appendChild(new_cont3);
 page.appendChild(new_div3);
 
 
 
-/// Display Txt : commands each time at end of print
+
 /// exits (or text after with commands neeeds to scroll dowen to bottom)
-/// inverntory I is typewritter 
+
 /// make npcs move around after a certain number of turns 
-/// fix talk function
+/// fix talk function: if talk good display points OR display bad negative points / end game 
 /// write better dialogue 
-///
+/// add typweriter sound fx (and other sounds)
