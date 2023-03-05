@@ -6,14 +6,21 @@ var game_state = 'commands';
 
 const world = {};
 const directs = ["N", "S", "E", "W"];
-const count = 0;
+var turn_count = 1;
 
+
+const typing_sound = new Audio("type.mp3");
 
 const nobody_msg = "THERE ISNT ANYONE EHRE";
 
+const curse_words = ['fuck', 'shit', 'cock'];
 
+function random_list_choice(list_to_choose){
+  var index = Math.floor(Math.random() * list_to_choose.length);
+  console.log(`index = ${index}`);
+  return list_to_choose[index];
+};
 
-console.log("PRRRRIIIII");
 
 class Item {
     constructor(name, desc, value) {
@@ -36,11 +43,10 @@ class Item {
         const score = phil.score;
         console.log(`You have ${score} points`);
         this.ready = false;
-        console.log("\x1b[0m");
-        //playsound("bell.mp3");
+        
       } else {
         console.log("\nYou just did that. Why not do something else?");
-        //playsound("badbell.mp3");
+        
       }
     }
   };
@@ -87,22 +93,22 @@ class Player {
     if (name == "sir"){
       let npc_response = choose(scam_list);
       display_commands(1000, npc_response, "blue");
-      display_commands(2000, "type your response", "green");
+      display_commands(2000, "type your response", "gray");
     }
     else if (name == "charles"){
       let npc_response = choose(charles_questions);
       display_commands(1000, npc_response, "blue");
-      display_commands(2000, "type your response", "green");
+      display_commands(2000, "type your response", "gray");
     }
     else if (name == "nathalie"){
       let npc_response = choose(nathalie_questions);
       display_commands(1000, npc_response, "blue");
-      display_commands(2000, "type your response", "green");
+      display_commands(2000, "type your response", "gray");
     }
     else{
       let npc_response = choose(question_list);
       display_commands(1000, npc_response, "blue");
-      display_commands(2000, "type your response", "green");
+      display_commands(2000, "type your response", "gray");
     };
 
     // handle typinmg reponse here
@@ -115,7 +121,7 @@ class Player {
   }
 };
 
-button.addEventListener("click", function(){
+button.addEventListener("click", function(){ // button event
 
     const new_div = document.createElement("div");
     const new_cont = document.createTextNode(user_input.value)
@@ -162,7 +168,7 @@ function display_room_info(){
 
 
     if (person !== null){
-        var msg2 = "Here with you, you see " + person.desc + "\r\n...";
+        var msg2 = " Here with you, you see " + person.desc + "\r\n...";
         const new_div = document.createElement("div");
         const new_cont = document.createTextNode('');
         new_div.appendChild(new_cont);
@@ -173,7 +179,7 @@ function display_room_info(){
     }else{msg2=' '};
 
     if (item !== null){
-        var msg3 = "You See... \r\n\n" + item.desc + "\r\n...";
+        var msg3 = " You see \r\n\n" + item.desc + "\r\n";
         const new_div = document.createElement("div");
         const new_cont = document.createTextNode('');
         new_div.appendChild(new_cont);
@@ -221,14 +227,29 @@ function display_commands(delay, str_to_display, color){
   new_div5.appendChild(document.createElement("br"));
 
   setTimeout(typeWriterEffect, delay, new_div5, str_to_display);
+  setTimeout(()=>{page.scrollTo(0, page.scrollHeight)}, delay+10);
+
+  
 
 }
 
-document.addEventListener("keydown", function(event){
+document.addEventListener("keydown", function(event){     ///ENTER IS PRESSED
     if (event.key==="Enter"){
 
         event.preventDefault();  // LINE BELOW SHOWS WHAT YOU TYPE
         //display_input();
+
+        if(turn_count%4==0){
+          all_characters.forEach((elem)=>{
+            var random_room = random_list_choice(rooms);
+            world[random_room.name].people = elem;
+            console.log(random_room, elem);
+          });
+          
+          };   
+
+        typing_sound.play();
+        setTimeout(()=>{typing_sound.pause()},2000);
 
         if(game_state == "commands"){
           check_command(user_input.value);
@@ -239,27 +260,37 @@ document.addEventListener("keydown", function(event){
           check_response(user_input.value);
           page.scrollTo(0, page.scrollHeight);
         };
-    };
-});
+      };
+      page.scrollTo(0, page.scrollHeight);
+    });
 
 function check_response(text_input){
-  console.log("Checking Answer to Question");
+  let cursed = false;
   let words = text_input.split(' ');
   console.log(words);
+
   words.forEach((word) => {
     console.log(word);
-    if (badwords.includes(word)){
-      console.log('BBBABDBBBABDBABDBADBADBBB   BREAK HERE')
+    if (curse_words.includes(word)){
+      cursed = true;
     };
   });
 
   display_commands(0, text_input, "green");
+
+  if (cursed == true){
+    display_commands(0, "YOU SAID BAD WORD", "red");
+    phil.score -= 10;
+    display_commands(1000, "Your score is now: " + phil.score, "pink");
+  }else{
+    display_commands(0, "Thanks so much for your help!", "green");
+    phil.score += 10;
+    display_commands(1000, "Your score is now: " + phil.score, "pink");
+  };
+
   display_commands(1500, command_list, "gray");
-
   user_input.value='';
-
   game_state = "commands";
-
   page.scrollTo(0, page.scrollHeight);
 
 };
@@ -302,7 +333,7 @@ function check_command(content){
             world[phil.room].items = null;
             console.log(world[phil.room].items);
             //phil.inventory[0].desc
-            display_commands(0, "You picked up a " + phil.inventory[0].name, "black");
+            display_commands(0, "You picked up a " + phil.inventory[0].name + '.', "black");
             display_commands(2000, command_list, "gray");
 
         }
@@ -384,6 +415,7 @@ function check_command(content){
             phil.room = phil.destination;
             console.log(phil.room);
             display_room_info();
+            turn_count++;
         } 
         else {
             const new_div = document.createElement("div");
@@ -419,18 +451,23 @@ function check_doors(){
     console.log("dooor checking...");
 };
 
+setInterval(()=>{page.scrollTo(0, page.scrollHeight)}, 500)
+
+
 
 // more variable declirations
 
-var phil = new Player("Phil", "A friendly employee and fiance.", "stockroom");
-const sir = new Player("sir", "A young buck with shiffty eyes.", "street")
-const customer = new Player("Robbin", "Robbin Ross: a grey streaked bougie white mom.", "store")
-const customer2 = new Player("Mr. Ortega", "Mr. Ortega: a large man with questionable employment.", "nowhere1")
-const charles = new Player("Charles Henery Starke II", "A top heavy doctor with hair that's never the same color as yesterday. He co-owns Pier Wines and pops in usually when he needs booze.", "nowhere3" )
-const nick = new Player("nick", "A young sales rep from Long Island", "nowhere4")
-const mark = new Player("mark", "Mark's last name is still unknown after a decade but it definitley ends in a vowel. Mark is a goomba and is the 'mayor' of Williamsburg. If you need something, Mark's got it.", "nowhere5")
-const nathalie = new Player("nathalie", "A cute asian-australian girl with high waisted pants is on her computer doing homework.","intro" )
-const ghost = new Player("No one is here.", "No one is here", "")
+var phil = new Player("Phil", "a friendly employee and fiance.", "stockroom");
+const sir = new Player("sir", "a young buck with shiffty eyes.", "street")
+const customer = new Player("Robbin", "Robbin Ross, a grey streaked bougie white mom.", "store")
+const customer2 = new Player("Mr. Ortega", "Mr. Ortega, a large man with questionable employment.", "nowhere1")
+const charles = new Player("Charles Henery Starke II", "a top heavy doctor with hair that's never the same color as yesterday. He co-owns Pier Wines and pops in usually when he needs booze.", "nowhere3" )
+const nick = new Player("nick", "a young sales rep from Long Island", "nowhere4")
+const mark = new Player("mark", "Mark, who's last name is still unknown after a decade but it definitley ends in a vowel. Mark is a goomba and is the 'mayor' of Williamsburg. If you need something, Mark's got it.", "nowhere5")
+const nathalie = new Player("nathalie", "a cute asian-australian girl with high waisted pants is on her computer doing homework.","intro" )
+const ghost = new Player("No one is here.", "no one is here", "")
+
+const all_characters = [sir, customer, customer2, charles, nick, mark, nathalie];
 
 
 // world
@@ -478,9 +515,12 @@ page.appendChild(new_div3);
 
 
 
+
+
+
 /// exits (or text after with commands neeeds to scroll dowen to bottom)
 
 /// make npcs move around after a certain number of turns 
-/// fix talk function: if talk good display points OR display bad negative points / end game 
+
 /// write better dialogue 
-/// add typweriter sound fx (and other sounds)
+/// sound fx (and other sounds)
