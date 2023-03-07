@@ -1,4 +1,4 @@
-const button = document.getElementById("button1");
+//const button = document.getElementById("button1");
 const user_input = document.getElementById("input");
 const span = document.getElementById("storyspan");
 const page = document.getElementById("page")
@@ -121,16 +121,6 @@ class Player {
   }
 };
 
-button.addEventListener("click", function(){ // button event
-
-    const new_div = document.createElement("div");
-    const new_cont = document.createTextNode(user_input.value)
-    new_div.appendChild(new_cont)
-    page.appendChild(new_div);
-    user_input.value=""
-    page.scrollTo(0, page.scrollHeight);
-
-});
 
 function display_input(){
 
