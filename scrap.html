@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+	<h1>Size Chart</h1>
+
+	<form>
+		<h2>Shirts</h2>
+		<label for="shirtSize">Select your shirt size:</label>
+		<input type="range" id="shirtSize" name="shirtSize" min="0" max="10" step="1">
+		<p>Your selected shirt size is: <span id="shirtValue">M</span></p>
+
+		<h2>Pants</h2>
+		<label for="pantSize">Select your pant size:</label>
+		<input type="range" id="pantSize" name="pantSize" min="0" max="10" step="1">
+		<p>Your selected pant size is: <span id="pantValue">M</span></p>
+	</form>
+
+	<script>
+		// get references to the input elements and their value display spans
+		const shirtSlider = document.getElementById("shirtSize");
+		const pantSlider = document.getElementById("pantSize");
+		const shirtValue = document.getElementById("shirtValue");
+		const pantValue = document.getElementById("pantValue");
+
+		// set initial values for the spans
+		shirtValue.textContent = "M";
+		pantValue.textContent = "M";
+
+		// add event listeners to update the span values as the sliders change
+		shirtSlider.addEventListener("input", function() {
+			shirtValue.textContent = getSize(shirtSlider.value);
+		});
+
+		pantSlider.addEventListener("input", function() {
+			pantValue.textContent = getSize(pantSlider.value);
+		});
+
+		// helper function to map the slider value to a size string
+		function getSize(value) {
+			switch (value) {
+				case "0": return "XS";
+				case "1": return "S";
+				case "2": return "M";
+				case "3": return "L";
+				case "4": return "XL";
+				case "5": return "XXL";
+				case "6": return "XXXL";
+				case "7": return "4XL";
+				case "8": return "5XL";
+				case "9": return "6XL";
+				case "10": return "7XL";
+			}
+		}
+	</script>
+</body>
+</html>
