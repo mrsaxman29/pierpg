@@ -88,25 +88,33 @@ body{
 
     #page{
         
-        margin-left:50px;
-        margin-right: 30px;
-        height: 240px;
-        top: 80px;
+        margin-left:20px;
+        margin-right: 20px;
+        height: 310px;
+        top: 20px;
 
     }
 
     #input{
         width: 200px;
         background-color: blueviolet;
+
     }
 
     body{
         background-color: bisque;
         overflow: visible;
     }
+    #footer{
+        padding: 0px;
+    }
 
         
-   
+   #ui{
+    display: flexbox;
+    
+    height:min-content;
+   }
     
     
 }
