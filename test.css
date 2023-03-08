@@ -97,10 +97,12 @@ body{
 
     #input{
         width: 200px;
+        background-color: blueviolet;
     }
 
     body{
         background-color: bisque;
+        overflow: visible;
     }
 
         
