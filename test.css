@@ -1,83 +1,81 @@
 *{
     font-family:Georgia, 'Times New Roman', Times, serif;
+    
 }
+
 
 body{
     background-color: rgb(32, 30, 30);
     margin: 0px;
     overflow: hidden;
-}
-
-#board{
-    background-color: green;
-    height: 80vh;
-    width: 100%;
-    background-image: url("frame.jpg");
-    background-size: cover;
-
+    box-sizing: border-box;
     
 }
 
 #page{
     
-    background-color: rgb(255, 255, 255);
-    height: 60vh;
-    margin-left: 150px;
-    margin-right: 145px;
-    margin-top: 0px;
-    border-radius: 5px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    padding: 10px;
-    position:relative;
-    top: 150px;
+    
+    width: 67%;
+    
+    height: 45vh;
+    background-image: url("frame.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    
+    
+    
+    background-color: beige;
+    overflow: hidden;
+    padding-left: 16vw;
+    padding-right: 17vw;
+    padding-top: 16%;
+    padding-bottom: 16%;
+    margin: 0px;
 
     
+    
 }
-
-#page::-webkit-scrollbar{
-    display: none;
-}
-
 
 
 
 #footer{
     background-color: beige;
     height: 20vh;
-    padding-top: 20px;
+    padding-top: 0px;
+    
+    
+
 }
 
 #ui{
-    background-color: chocolate;
-    display: flex;
-    flex-direction: row;
-    height: 14vh;
-    margin-top: 0vh;
+    background-color: pink;
+    height: 7vh;
+    
     margin-left: 12px;
     margin-right: 12px;
     border-radius: 10px;
-    flex-direction: row;
+    flex: 1;
     
 }
 
 #input{
-    background-color: bisque;
-    height: 50%;
-    margin-top: 3vh;
-    margin-left: 0vh;
-    width: 60vh;
+    background-color: rgb(240, 236, 231);
+    height: 70%;
+    width: 60%;
     font-size: xx-large;
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+    margin-top: .6%;
+    margin-left: 21%;
+    
+    
+    
+    
     
     
 }
 
-/*  SMALL SCREENS  */
+/*  SMALL SCREENS  
 
 @media only screen  and (max-width: 610px){
 
