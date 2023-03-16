@@ -12,29 +12,29 @@ body{
     
 }
 
-#page{
-    
-    
-    width: 67%;
-    
-    height: 45vh;
+#frame{
     background-image: url("frame.jpg");
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment:fixed;
+    display: flex;
+    background-color: green;
+    height: 90vh;
+    width: 100vw;
     
-    
-    
-    background-color: beige;
-    overflow: hidden;
-    padding-left: 16vw;
-    padding-right: 17vw;
-    padding-top: 16%;
-    padding-bottom: 16%;
-    margin: 0px;
 
+}
+
+#page{
     
-    
+    position: relative;
+    top: 25%;
+    left: 16%;
+    width: 68%;
+    height: 62vh;
+    background-color: beige;
+    margin: 0px;
+    overflow-y: scroll;
 }
 
 
