@@ -28,7 +28,7 @@ body{
 #page{
     
     position: relative;
-    top: 25%;
+    top: 29%;
     left: 16%;
     width: 68%;
     height: 62vh;
@@ -37,19 +37,25 @@ body{
     overflow-y: scroll;
 }
 
-
+::-webkit-scrollbar{
+    display: none;
+}
 
 #footer{
-    background-color: beige;
+    background-color: purple;
     height: 20vh;
     padding-top: 0px;
+    background-image: url("frame.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
     
     
 
 }
 
 #ui{
-    background-color: pink;
+    background-color: transparent;
     height: 7vh;
     
     margin-left: 12px;
@@ -69,9 +75,21 @@ body{
     margin-left: 21%;
     
     
-    
-    
-    
+}
+
+
+@media screen and (max-width:600px) {
+    #frame{
+        background-image: url("frame2.jpg");
+        background-size:100%;
+        background-repeat: repeat;
+    }
+
+    #page{
+        top: 10%;
+        height: 40svh;
+    }
+
     
 }
 
