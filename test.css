@@ -42,7 +42,7 @@ body{
 }
 
 #footer{
-    background-color: purple;
+    background-color: gray;
     height: 20vh;
     padding-top: 0px;
     background-image: url("frame.jpg");
@@ -80,9 +80,11 @@ body{
 
 @media screen and (max-width:600px) {
     #frame{
+        height: 60svh;
         background-image: url("frame2.jpg");
         background-size:100%;
         background-repeat: repeat;
+        
     }
 
     #page{
@@ -90,6 +92,10 @@ body{
         height: 40svh;
     }
 
+    #footer{
+        height: 40vh;
+        background-size: 185%;
+    }
     
 }
 

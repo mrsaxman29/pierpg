@@ -23,10 +23,11 @@ function random_list_choice(list_to_choose){
 
 
 class Item {
-    constructor(name, desc, value) {
+    constructor(name, desc, value, use_desc) {
       this.name = name;
       this.desc = desc;
       this.value = value;
+      this.use_desc = use_desc;
       this.ready = true;
     }
   
@@ -306,6 +307,7 @@ function check_command(content){
         console.log("L WAS PRESSSED");
         console.log(world[phil.room].desc);
         console.log("LOOK OVER")
+        display_commands(0,"")
         display_room_info();
         page.scrollTo(0, page.scrollHeight);
     }
@@ -349,7 +351,9 @@ function check_command(content){
         else{
             if(phil.inventory[0].ready == true){
                 phil.score += phil.inventory[0].value;
-                display_commands(0, "You used the " + phil.inventory[0].name + ". Your score is now " + phil.score, "black");
+                display_commands(0, phil.inventory[0].use_desc, "black");
+                display_commands(1000, " Your score is now " + phil.score, "green");
+                display_commands(1400, command_list, "gray");
                 phil.inventory[0].ready = false;
                 }
             else{
@@ -462,13 +466,13 @@ const all_characters = [sir, customer, customer2, charles, nick, mark, nathalie]
 
 // world
 
-const broom = new Item("broom", "A Broom: A long pole with bristles at one end used for sweeping the floor.", 10)
-const mop = new Item("mop", "A Mop: A long plastic pole with a frayed head at the bottom used for cleaning the floor", 15)
-const package = new Item("package", "A small brown box addressed to Amanda Roberts", 5)
-const wallet = new Item("wallet", "A blue leather wallet with smooth finish. Inside are credit cards with the name Robin Ross", 5)
-const chairs = new Item("chairs", "Two metal planked chairs.", 5)
-const glasses = new Item("glasses", "Various glass ware of questionable size, shape and condition.", 10)
-const bottles = new Item("bottles", "Shiny glass wine bottles of assorted juices.", 5)
+const broom = new Item("broom", "A Broom: A long pole with bristles at one end used for sweeping the floor.", 10, "You sweep up for a while. You look at the fraying bistles, a gnarly bunch of black plastic strands as they slide across the ground.")
+const mop = new Item("mop", "A Mop: A long plastic pole with a frayed head at the bottom used for cleaning the floor", 15, "BBBB")
+const package = new Item("package", "A small brown box addressed to Amanda Roberts", 5, "BBBB")
+const wallet = new Item("wallet", "A blue leather wallet with smooth finish. Inside are credit cards with the name Robin Ross", 5, "BBBB")
+const chairs = new Item("chairs", "Two metal planked chairs.", 5, "BBBB")
+const glasses = new Item("glasses", "Various glass ware of questionable size, shape and condition.", 10, "BBBB")
+const bottles = new Item("bottles", "Shiny glass wine bottles of assorted juices.", 5, "BBBB")
 
 const intro = new Room("intro", "Press ENTER to start the game", null, {}, null, []);
 const bodega = new Room("bodega", "Inside the bodega there are random snacks, drinks and other products everywhere.", null, {"W": "street"}, null, []);
