@@ -28,10 +28,10 @@ body{
 #page{
     
     position: relative;
-    top: 29%;
+    top: 31%;
     left: 16%;
     width: 68%;
-    height: 62vh;
+    height: 60vh;
     background-color: beige;
     margin: 0px;
     overflow-y: scroll;
@@ -93,8 +93,13 @@ body{
     }
 
     #footer{
-        height: 40vh;
-        background-size: 185%;
+        height: 40svh;
+        background-size: 100%;
+        background-image: url("frame2.jpg");
+    }
+
+    body{
+        height: 100svh;
     }
     
 }

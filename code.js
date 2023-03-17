@@ -467,12 +467,12 @@ const all_characters = [sir, customer, customer2, charles, nick, mark, nathalie]
 // world
 
 const broom = new Item("broom", "A Broom: A long pole with bristles at one end used for sweeping the floor.", 10, "You sweep up for a while. You look at the fraying bistles, a gnarly bunch of black plastic strands as they slide across the ground.")
-const mop = new Item("mop", "A Mop: A long plastic pole with a frayed head at the bottom used for cleaning the floor", 15, "BBBB")
-const package = new Item("package", "A small brown box addressed to Amanda Roberts", 5, "BBBB")
-const wallet = new Item("wallet", "A blue leather wallet with smooth finish. Inside are credit cards with the name Robin Ross", 5, "BBBB")
-const chairs = new Item("chairs", "Two metal planked chairs.", 5, "BBBB")
-const glasses = new Item("glasses", "Various glass ware of questionable size, shape and condition.", 10, "BBBB")
-const bottles = new Item("bottles", "Shiny glass wine bottles of assorted juices.", 5, "BBBB")
+const mop = new Item("mop", "A Mop: A long plastic pole with a frayed head at the bottom used for cleaning the floor", 15, "You grab the mop and fins it's sister bucket. After filling the bucket with water and adding soap from under the slop sink, you dunk the mop into the sudsy water and begin mopping the floor.")
+const package = new Item("package", "A small brown box addressed to Amanda Roberts", 5, "You place the package on top of the boxes of Prosecco along the back wall; the normal collection area for employee spouse packages.")
+const wallet = new Item("wallet", "A blue leather wallet with smooth finish. Inside are credit cards with the name Robin Ross", 5, "You dutifully put the wallet under the register; the nornmal spot for all things accidentally left at the shop by forgetful customers.")
+const chairs = new Item("chairs", "Two metal planked chairs.", 5, "You place the charis against the window below Made-In-NY window display.")
+const glasses = new Item("glasses", "Various glass ware of questionable size, shape and condition.", 10, "You arrange the glasses in their section according to type be careful not to drop or crack any.")
+const bottles = new Item("bottles", "Shiny glass wine bottles of assorted juices.", 5, "You recycle the empty ones and put the unopened bottles on their shelves.")
 
 const intro = new Room("intro", "Press ENTER to start the game", null, {}, null, []);
 const bodega = new Room("bodega", "Inside the bodega there are random snacks, drinks and other products everywhere.", null, {"W": "street"}, null, []);
