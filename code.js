@@ -2,6 +2,8 @@
 const user_input = document.getElementById("input");
 const span = document.getElementById("storyspan");
 const page = document.getElementById("page")
+const frame = document.getElementById("frame")
+const bodyy = document.getElementById("bd")
 var game_state = 'commands';
 
 const world = {};
@@ -17,6 +19,8 @@ const curse_words = ['fuck', 'shit', 'cock'];
 
 function scroll_to_top(){
   window.scrollTo(0,0);
+  frame.scrollTo(0,0);
+  bodyy.scrollTo(0,0);
 }
 
 user_input.addEventListener("focus", scroll_to_top);
