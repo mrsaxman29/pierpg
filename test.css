@@ -104,8 +104,14 @@ body{
         height: 100svh;
     }
 
+    #ui{
+        margin-top: -40px;
+    }
+
     #input{
         width: 200px;
+        margin-left: 18%;
+        
     }
     
 }
