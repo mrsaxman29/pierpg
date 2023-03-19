@@ -28,7 +28,7 @@ body{
 #page{
     
     position: relative;
-    top: 31%;
+    top: 33%;
     left: 16%;
     width: 68%;
     height: 60vh;
@@ -88,18 +88,24 @@ body{
     }
 
     #page{
-        top: 10%;
+        top: 20%;
         height: 40svh;
+        width: 60vw;
+        left: 20vw;
     }
 
     #footer{
-        height: 40svh;
+        height: 20svh;
         background-size: 100%;
         background-image: url("frame2.jpg");
     }
 
     body{
         height: 100svh;
+    }
+
+    #input{
+        width: 200px;
     }
     
 }

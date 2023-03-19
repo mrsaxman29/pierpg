@@ -15,6 +15,12 @@ const nobody_msg = "THERE ISNT ANYONE EHRE";
 
 const curse_words = ['fuck', 'shit', 'cock'];
 
+function scroll_to_top(){
+  window.scrollTo(0,0);
+}
+
+user_input.addEventListener("focus", scroll_to_top);
+
 function random_list_choice(list_to_choose){
   var index = Math.floor(Math.random() * list_to_choose.length);
   console.log(`index = ${index}`);
