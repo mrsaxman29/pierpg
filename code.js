@@ -23,7 +23,7 @@ function scroll_to_top(){
   bodyy.scrollTo(0,0);
 }
 
-///user_input.addEventListener("focus", scroll_to_top);
+
 
 setInterval(scroll_to_top,1000);
 
