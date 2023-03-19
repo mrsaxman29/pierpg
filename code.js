@@ -23,7 +23,9 @@ function scroll_to_top(){
   bodyy.scrollTo(0,0);
 }
 
-user_input.addEventListener("focus", scroll_to_top);
+///user_input.addEventListener("focus", scroll_to_top);
+
+setInterval(scroll_to_top,1000);
 
 function random_list_choice(list_to_choose){
   var index = Math.floor(Math.random() * list_to_choose.length);
