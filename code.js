@@ -493,11 +493,12 @@ const bathroom = new Room("bathroom", "You are in a small BATHROOM with poorly p
 const desk = new Room("desk", "You see a DESK, some corkboards, a filing cabinet and chairs", package, {"E": "stockroom", "N": "register"}, null, []);
 const register = new Room("register", "An L-shaped counter with cash drawer, credit card machine and monitor is in front of you", wallet, {"E": "store", "S": "desk", "N": "door"}, null, []);
 const door = new Room("door", "A glass door", null, {"N": "street", "S": "store"}, null, []);
-const street = new Room("street", "The sidewalk in front of the store is covered by a black awning. \nThere is smeared dog poop on the sidewalk not far away.", chairs, {"S": "door", "E": "bodega"}, sir, []);
+const daycare = new Room("daycare", "You see a doggie day care business called Eco Dog. The door has an electronic lock to prevent the dogs from escaping and the windows are plastered with over-szied images of happy canines.", null, {"E": "street"}, null, []);
+const street = new Room("street", "The sidewalk in front of the store is covered by a black awning. \nThere is smeared dog poop on the sidewalk not far away.", chairs, {"S": "door", "E": "bodega", "W": "daycare"}, sir, []);
 const store = new Room("store", "The main selling floor is covered by bins filled with wine. \nAlong the wall shelves with neatly stacked bottles cover the far side of the store.", bottles, {"S": "bar", "W": "register", "N": "door"}, customer, []);
 const bar = new Room("bar", "A high counter covered in aluminium abutting a purple wall with port hole windows is across the room from the door.  \nBlack letter blocks with silver letters spell out PIER WINES", glasses, {"N": "store", "W": "desk"}, null, []);
 
-const rooms = [intro, bodega, stockroom, bathroom, desk, register, door, street, store, bar];
+const rooms = [intro, bodega, stockroom, bathroom, desk, register, door, street, store, bar, daycare];
 
 const question_list = ["Do you have orange wine?", "Do you have AIR Vodka?", "Do you have this chilled?", "Can I please use your bathroom?", "Can I get what I had last time?", "I had a wine on vacation six years ago in Malta that started with a P. Do you know what I'm talking about?", "Is this dry?", "What time do you close?", "Can I get a discount?", "Do you sell beer?"]
 const scam_list = ["Yo. Do you have Henny?", "What's up boss.  Do you guys have large Patron?", "Ey Pa.  You guys have Ciroc?", "Yo my man, do you take Kinch?"]
@@ -514,7 +515,7 @@ rooms.forEach(element => {
 });
 
 const new_div3 = document.createElement("div");
-const new_cont3 = document.createTextNode("ENTER 'L' TO START");
+const new_cont3 = document.createTextNode("You find yourself in a local wine shop. You must work here or something... Type L to look around.");
 new_div3.appendChild(new_cont3);
 page.appendChild(new_div3);
 
@@ -524,9 +525,7 @@ page.appendChild(new_div3);
 
 
 
-/// exits (or text after with commands neeeds to scroll dowen to bottom)
-
-/// make npcs move around after a certain number of turns 
 
 /// write better dialogue 
-/// sound fx (and other sounds)
+
+/// make winning condition animate 
