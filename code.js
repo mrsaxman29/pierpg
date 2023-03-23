@@ -478,25 +478,25 @@ const all_characters = [sir, customer, customer2, charles, nick, mark, nathalie]
 
 // world
 
-const broom = new Item("broom", "A Broom: A long pole with bristles at one end used for sweeping the floor.", 10, "You sweep up for a while. You look at the fraying bistles, a gnarly bunch of black plastic strands as they slide across the ground.")
-const mop = new Item("mop", "A Mop: A long plastic pole with a frayed head at the bottom used for cleaning the floor", 15, "You grab the mop and fins it's sister bucket. After filling the bucket with water and adding soap from under the slop sink, you dunk the mop into the sudsy water and begin mopping the floor.")
-const package = new Item("package", "A small brown box addressed to Amanda Roberts", 5, "You place the package on top of the boxes of Prosecco along the back wall; the normal collection area for employee spouse packages.")
+const broom = new Item("broom", "A long pole with bristles at one end used for sweeping the floor; also known as a broom.", 10, "You sweep up for a while. You look at the fraying bistles, a gnarly bunch of black plastic strands as they slide across the ground.")
+const mop = new Item("mop", "A long plastic pole with a frayed head at the bottom used for mopping the floor.", 15, "You grab the mop and fins it's sister bucket. After filling the bucket with water and adding soap from under the slop sink, you dunk the mop into the sudsy water and begin mopping the floor.")
+const package = new Item("package", "A small brown box addressed to Amanda Roberts.", 5, "You place the package on top of the boxes of Prosecco along the back wall; the normal collection area for employee spouse packages.")
 const wallet = new Item("wallet", "A blue leather wallet with smooth finish. Inside are credit cards with the name Robin Ross", 5, "You dutifully put the wallet under the register; the nornmal spot for all things accidentally left at the shop by forgetful customers.")
 const chairs = new Item("chairs", "Two metal planked chairs.", 5, "You place the charis against the window below Made-In-NY window display.")
-const glasses = new Item("glasses", "Various glass ware of questionable size, shape and condition.", 10, "You arrange the glasses in their section according to type be careful not to drop or crack any.")
-const bottles = new Item("bottles", "Shiny glass wine bottles of assorted juices.", 5, "You recycle the empty ones and put the unopened bottles on their shelves.")
+const glasses = new Item("glasses", "Various glassware of questionable size, shape and condition.", 10, "You arrange the glasses in their section according to type while being careful not to drop or crack any.")
+const bottles = new Item("bottles", "Shiny glass wine bottles of assorted varietals.", 5, "You recycle the empty ones and put the unopened bottles on their respective shelves.")
 
 const intro = new Room("intro", "Press ENTER to start the game", null, {}, null, []);
 const bodega = new Room("bodega", "Inside the bodega there are random snacks, drinks and other products everywhere.", null, {"W": "street"}, null, []);
-const stockroom = new Room("stockroom", "You're in the STOCK ROOM. It's filled with various boxes and supplies for the store.", broom, {"E": "bathroom", "W": "desk"}, null, []);
-const bathroom = new Room("bathroom", "You are in a small BATHROOM with poorly painted white walls", mop, {"W": "stockroom"}, null, []);
-const desk = new Room("desk", "You see a DESK, some corkboards, a filing cabinet and chairs", package, {"E": "stockroom", "N": "register"}, null, []);
+const stockroom = new Room("stockroom", "You're in the stock room. It's filled with various boxes and supplies for the store.", broom, {"E": "bathroom", "W": "desk"}, null, []);
+const bathroom = new Room("bathroom", "You are in a small bathroom with poorly painted white walls", mop, {"W": "stockroom"}, null, []);
+const desk = new Room("desk", "You see a desk... well, really it looks like a three-leafed dinning table repurposed as a desk. Underneath is a black filing cabinet while a corkboard hangs on the wall behind the so-called desk.", package, {"E": "stockroom", "N": "register"}, null, []);
 const register = new Room("register", "An L-shaped counter with cash drawer, credit card machine and monitor is in front of you", wallet, {"E": "store", "S": "desk", "N": "door"}, null, []);
 const door = new Room("door", "A glass door", null, {"N": "street", "S": "store"}, null, []);
 const daycare = new Room("daycare", "You see a doggie day care business called Eco Dog. The door has an electronic lock to prevent the dogs from escaping and the windows are plastered with over-szied images of happy canines.", null, {"E": "street"}, null, []);
 const street = new Room("street", "The sidewalk in front of the store is covered by a black awning. \nThere is smeared dog poop on the sidewalk not far away.", chairs, {"S": "door", "E": "bodega", "W": "daycare"}, sir, []);
 const store = new Room("store", "The main selling floor is covered by bins filled with wine. \nAlong the wall shelves with neatly stacked bottles cover the far side of the store.", bottles, {"S": "bar", "W": "register", "N": "door"}, customer, []);
-const bar = new Room("bar", "A high counter covered in aluminium abutting a purple wall with port hole windows is across the room from the door.  \nBlack letter blocks with silver letters spell out PIER WINES", glasses, {"N": "store", "W": "desk"}, null, []);
+const bar = new Room("bar", "In front of you is a high counter covered in aluminium abutting a purple wall with port hole windows. Across the room is the main selling area and the door outside.  \nBlack wooden letter-blocks with silver letters spell out PIER WINES", glasses, {"N": "store", "W": "desk"}, null, []);
 
 const rooms = [intro, bodega, stockroom, bathroom, desk, register, door, street, store, bar, daycare];
 
